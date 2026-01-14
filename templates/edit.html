@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<!-- 继承 base.html 的 head 全部内容（编码、样式等） -->
+{{ super() }}
+<!-- 重写页面标题，保持与站点风格统一 -->
+<title>Edit Movie - {{ user.name }}'s Watchlist</title>
+{% endblock %}
+
+{% block content %}
+<h3>Edit Item</h3>
+<!-- 编辑表单：保持核心功能，优化布局和可访问性 -->
+<form method="post">
+    <div>
+        <!-- 新增 label 与输入框关联，提升可访问性（点击标签可聚焦输入框） -->
+        <label for="title">Movie Title</label><br>
+        <input type="text" name="title" id="title" autocomplete="off" required value="{{ movie.title|default('') }}">
+    </div>
+    <div style="margin-top: 10px;">
+        <label for="year">Movie Year</label><br>
+        <input type="text" name="year" id="year" autocomplete="off" required value="{{ movie.year|default('') }}">
+    </div>
+    <!-- 移除冗余的 name="submit"（视图函数不依赖该属性，简化代码） -->
+    <input class="btn" type="submit" value="Update" style="margin-top: 15px;">
+</form>
+
+<!-- 保留返回主页链接，保持导航便捷性 -->
+<p style="margin-top: 20px;">
+    <a href="{{ url_for('index') }}">← Back to Home</a>
+</p>
+{% endblock %}
